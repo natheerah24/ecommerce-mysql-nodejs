@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="users"></div>
+  </body>
+  
+  <script>
+    let users = [];
+    const uContainer = document.querySelector("#users");
+    fetch("http://localhost:6969/users")
+      .then((res) => res.json())
+      .then((data) => {
+        users = data;
+        console.log(data);
+        showusers(users);
+      });
+    function showusers(users) {
+      uContainer.innerHTML = "";
+      users.forEach((user) => {
+        uContainer.innerHTML += `
+    <div class="user">
+    <h2>${user.email}</h2>
+    <h2>${user.password} - ${user.full_name}</h2>
+    <h2>${user.phone}</h2>
+     <h2>${user.billing_address}</h2>
+      <h2>${user.default_shipping_address}</h2>
+       <h2>${user.country}</h2>
+        <h2>${user.user_type}</h2>
+    </div>
+        `;
+      });
+    }
+  </script>
+</html>
